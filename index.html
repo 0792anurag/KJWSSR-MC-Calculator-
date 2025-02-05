@@ -1,0 +1,105 @@
+><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Krishna Jewellery Work Shop Showroom</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+            background-color: #f8f8f8;
+        }
+        h1 {
+            color: #b8860b;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            width: 50%;
+            margin: auto;
+            box-shadow: 0px 0px 10px gray;
+        }
+        label, input {
+            font-size: 18px;
+            margin: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #b8860b;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #8b6914;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Krishna Jewellery Work Shop Showroom</h1>
+
+    <div class="container">
+        <label for="totalPrice">Total Price Paid (₹): </label>
+        <input type="number" id="totalPrice" value="60200">
+
+        <br>
+
+        <label for="goldWeight">Gold Weight (g): </label>
+        <input type="number" id="goldWeight" value="7.25">
+
+        <br>
+
+        <label for="goldRate">Gold Rate (₹ per 10g): </label>
+        <input type="number" id="goldRate" value="73000">
+
+        <br>
+
+        <label for="gstRate">GST Rate (%): </label>
+        <input type="number" id="gstRate" value="3">
+
+        <br>
+
+        <button onclick="calculateMakingCharge()">Calculate Making Charge per Gram</button>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateMakingCharge() {
+            let totalPrice = parseFloat(document.getElementById("totalPrice").value);
+            let goldWeight = parseFloat(document.getElementById("goldWeight").value);
+            let goldRate = parseFloat(document.getElementById("goldRate").value);
+            let gstRate = parseFloat(document.getElementById("gstRate").value);
+
+            // Remove GST from total price
+            let priceWithoutGST = totalPrice / (1 + gstRate / 100);
+
+            // Calculate actual gold price
+            let goldPricePerGram = goldRate / 10;
+            let goldPrice = goldWeight * goldPricePerGram;
+
+            // Calculate making charge total
+            let makingChargeTotal = priceWithoutGST - goldPrice;
+
+            // Calculate making charge per gram
+            let makingChargePerGram = makingChargeTotal / goldWeight;
+
+            // Display the result
+            document.getElementById("result").innerHTML = 
+                "Making Charge per Gram: ₹" + makingChargePerGram.toFixed(2);
+        }
+    </script>
+
+</body>
+</html>
